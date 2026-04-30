@@ -3,36 +3,52 @@ import Link from "next/link";
 
 const Banner = () => {
   return (
-    <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 text-white">
-      <div className="max-w-7xl mx-auto px-6 py-16 md:py-24 grid md:grid-cols-2 items-center gap-10">
-        
-        {/* Left Content */}
+    <div className="">
+
+      <div
+        className="relative flex mx-auto items-center justify-center h-[350px] md:h-[500px] px-6 py-10 text-center bg-cover bg-center bg-no-repeat
+ 
+  "
+        style={{ backgroundImage: "url('/banner.png')" }}
+      >
+
         <div>
-          <h1 className="text-3xl md:text-5xl font-bold leading-tight">
+          <h1 className=" z-50 text-3xl md:text-6xl font-bold text-[#e75500] leading-tight">
             Discover Your Perfect Aesthetic
           </h1>
+
           <p className="mt-4 text-lg text-gray-200">
             Explore our premium collection of modern tiles to transform your
             space into something truly beautiful and unique.
           </p>
 
           <Link href="/all-tiles">
-            <button className="mt-6 px-6 py-3 rounded-full bg-white text-blue-600 font-semibold hover:bg-gray-200 transition">
-              Browse Now
+            <button className="relative mt-4 px-6 py-3 rounded-full font-semibold text-[#ffede3]
+bg-[#b84908] overflow-hidden group
+active:translate-y-[3px] transition-all duration-200">
+
+              {/* rotating border */}
+              <span className="absolute inset-0 rounded-full p-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300">
+                <span className="absolute inset-0 rounded-full
+    bg-[conic-gradient(#ffede3,transparent,#ffede3)]
+    animate-[spin_3.5s_linear_infinite]">
+                </span>
+              </span>
+
+              {/* inner background */}
+              <span className="absolute inset-[2px] rounded-full bg-[#b84908]"></span>
+
+              {/* text */}
+              <span className="relative z-10">
+                Browse Now
+              </span>
+
             </button>
           </Link>
         </div>
 
-        {/* Right Image */}
-        <div className="flex justify-center">
-          <img
-            src="https://i.ibb.co/0jQn6xK/tiles-banner.png"
-            alt="tiles"
-            className="w-full max-w-md rounded-xl shadow-lg"
-          />
-        </div>
-
       </div>
+
     </div>
   );
 };
