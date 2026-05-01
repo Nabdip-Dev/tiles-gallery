@@ -2,22 +2,22 @@ import Link from "next/link";
 
 const TileCard = ({ tile }) => {
   return (
-    <div className="w-[360px] lg:w-[300px] bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden group border border-gray-100">
+    <div className="w-[350px] lg:w-[280px] bg-white rounded-2xl shadow-md hover:shadow-xl transition overflow-hidden group border border-gray-100">
 
       {/* Image */}
-      <div className="relative">
+      <div className="relative p-4 flex justify-center items-center">
         <img
           src={tile.image}
-          className="w-full h-[180px] object-cover group-hover:scale-105 transition duration-300"
+          className="w-full md:w-[200px] h-full md:h-[190px] object-cover group-hover:scale-105 transition duration-300 rounded-4xl"
           alt={tile.title}
         />
 
         <span className={`absolute top-2 right-2 text-[11px] px-2 py-1 rounded-full text-white
       ${tile.inStock ? "bg-green-500" : "bg-red-500"}`}>
-          {tile.inStock ? "In Stock" : "Out"}
+          {tile.inStock ? "In Stock 🔥" : "Out"}
         </span>
       </div>
-
+          <hr />
       {/* Content */}
       <div className="p-4 space-y-1">
 
@@ -35,11 +35,12 @@ const TileCard = ({ tile }) => {
 
         <div className="flex items-center justify-between mt-2">
           <span className="text-[#fb5c00] font-bold">
+            
             ${tile.price}
           </span>
 
           <Link href={`/tiles/${tile.id}`}>
-            <button className="px-3 py-1 text-sm rounded-lg bg-blue-500 text-white hover:bg-blue-600 transition">
+            <button className="px-3 py-1 text-sm rounded-lg bg-[#331300b6] text-white hover:bg-[#fb5c00] hover:text-black transition cursor-pointer">
               Details
             </button>
           </Link>
