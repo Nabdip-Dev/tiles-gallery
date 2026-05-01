@@ -13,7 +13,7 @@ const Banner = () => {
       >
 
         <div>
-          <h1 className=" z-50 text-3xl md:text-6xl font-bold text-[#e75500] leading-tight">
+          <h1 className=" z-50 text-3xl md:text-6xl font-bold text-[#ff5e00] leading-tight">
             Discover Your Perfect Aesthetic
           </h1>
 
@@ -24,8 +24,8 @@ const Banner = () => {
 
           <Link href="/all-tiles">
             <button className="relative mt-4 px-6 py-3 rounded-full font-semibold text-[#ffede3]
-bg-[#b84908] overflow-hidden group
-active:translate-y-[3px] transition-all duration-200">
+bg-[#fb5c00] overflow-hidden group
+active:translate-y-[3px] transition-all duration-200 cursor-pointer">
 
               {/* rotating border */}
               <span className="absolute inset-0 rounded-full p-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300">
@@ -36,7 +36,7 @@ active:translate-y-[3px] transition-all duration-200">
               </span>
 
               {/* inner background */}
-              <span className="absolute inset-[2px] rounded-full bg-[#b84908]"></span>
+              <span className="absolute inset-[2px] rounded-full bg-[#f15a03]"></span>
 
               {/* text */}
               <span className="relative z-10">

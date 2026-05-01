@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import NavLink from "./NavLink";
 
 const Navbar = ({ user, handleLogout }) => {
   return (
@@ -7,16 +8,16 @@ const Navbar = ({ user, handleLogout }) => {
       
       {/* Left - Logo */}
       <div className="navbar-start">
-        <Link href="/" className="text-xl font-bold text-blue-600">
-          TileGallery
+        <Link href="/" className="text-xl font-bold text-[#ff5e00]">
+          TILE<span className="text-[#2c1b3b]">S</span>HOP
         </Link>
       </div>
 
       {/* Center - Menu */}
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1 font-medium">
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/all-tiles">All Tiles</Link></li>
+          <li><NavLink href="/">Home</NavLink></li>
+          <li><NavLink href="/all-tiles">All Tiles</NavLink></li>
           {user && <li><Link href="/my-profile">My Profile</Link></li>}
         </ul>
       </div>
@@ -52,9 +53,9 @@ const Navbar = ({ user, handleLogout }) => {
           ☰
         </label>
         <ul className="menu dropdown-content mt-3 p-2 shadow bg-white rounded-box w-40">
-          <li><Link href="/">Home</Link></li>
-          <li><Link href="/all-tiles">All Tiles</Link></li>
-          {user && <li><Link href="/my-profile">My Profile</Link></li>}
+          <li><NavLink href="/">Home</NavLink></li>
+          <li><NavLink href="/all-tiles">All Tiles</NavLink></li>
+          {user && <li><Link href="/my-profile">My Profile</NavLink></li>}
         </ul>
       </div>
 
