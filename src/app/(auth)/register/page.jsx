@@ -1,11 +1,37 @@
 "use client";
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Register() {
     const [show, setShow] = useState(false);
+    const { register,
+        handleSubmit, formState: { errors } } = useForm();
+
+    const handelfun = async (data) => {
+        console.log(data, 'data')
+        const { email, name, photo, password } = data;
+
+        const { data: res, error } = await authClient.signUp.email({
+            name: name,
+            email: email,
+            password: password,
+            image: photo,
+            callbackURL: "/",
+        })
+        console.log(res, error)
+        if (error) {
+            alert(error?.message || "Something went wrong");
+            return;
+        }
+
+        alert("Registration Successful");
+
+    };
 
     return (
+
         <div className="min-h-screen flex items-center justify-center px-6">
 
             {/* 🔥 same gradient as login */}
@@ -21,23 +47,29 @@ export default function Register() {
                     </p>
 
                     {/* Form */}
-                    <form className="space-y-4">
+                    <form onSubmit={handleSubmit(handelfun)} className="space-y-4 ">
 
                         <input
                             type="text"
                             placeholder="Full Name"
+                            {...register("name", { required: "Create Account requires a name." })}
                             className="input input-bordered w-full rounded-xl focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                         />
+                        {errors.name && <p className="text-red-700">{errors.name.message}</p>}
 
                         <input
                             type="email"
                             placeholder="Email Address"
-                            className="input input-bordered w-full rounded-xl focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
+                            {...register("email", { required: "Create Account requires a Email." })}
+                            className="input input-bordered w-full rounded-xl 
+                            focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                         />
+                        {errors.email && <p className="text-red-700">{errors.email.message}</p>}
 
                         <input
                             type="text"
                             placeholder="Photo URL"
+                            {...register("photo")}
                             className="input input-bordered w-full rounded-xl focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                         />
 
@@ -46,6 +78,7 @@ export default function Register() {
                             <input
                                 type={show ? "text" : "password"}
                                 placeholder="Password"
+                                {...register("password", { required: "Create Account requires a password." })}
                                 className="input input-bordered w-full rounded-xl pr-10 focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                             />
 
@@ -58,6 +91,7 @@ export default function Register() {
                             </span>
 
                         </div>
+                        {errors.password && <p className="text-red-700">{errors.password.message}</p>}
 
                         {/* 🔥 same button color as login */}
                         <button className="w-full py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-[#ff5e00] to-[#ae4001] hover:scale-105 transition duration-300 shadow-md">

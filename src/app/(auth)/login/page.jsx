@@ -2,10 +2,17 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function Login() {
     const [show, setShow] = useState(false);
+    const { register,
+        handleSubmit,  formState: { errors } } = useForm();
 
+    const handelfun = (data) => {
+        console.log(data , 'data')
+    };
+    
     return (
         <div className="min-h-screen flex items-center justify-center px-6">
 
@@ -21,14 +28,16 @@ export default function Login() {
                     </p>
 
                     {/* Form */}
-                    <form className="space-y-4">
+                    <form onSubmit={handleSubmit(handelfun)} className="space-y-4">
 
                         {/* Email */}
                         <input
                             type="email"
                             placeholder="Email Address"
+                            {...register("email",{ required: "Login requires a email." })}
                             className="input input-bordered w-full rounded-xl focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                         />
+                         {errors.email && <p className="text-red-700">{errors.email.message}</p>}
 
                         {/* Password */}
                         <div className="relative">
@@ -36,6 +45,7 @@ export default function Login() {
                             <input
                                 type={show ? "text" : "password"}
                                 placeholder="Password"
+                                {...register("password", { required: "Login requires a password." })}
                                 className="input input-bordered w-full rounded-xl pr-10 focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                             />
 
@@ -46,8 +56,9 @@ export default function Login() {
                             >
                                 {show ? "👁️" : "🙈"}
                             </span>
-
+                             
                         </div>
+                        {errors.password && <p className="text-red-700">{errors.password.message}</p>}
 
                         {/* Login Button */}
                         <button className="w-full py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-[#ff5e00] to-[#ae4001] hover:scale-105 transition duration-300 shadow-md">
