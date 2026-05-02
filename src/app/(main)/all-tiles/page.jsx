@@ -1,99 +1,93 @@
 "use client";
 import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { getTileById } from "@/services/api";
+import { getTiles } from "@/services/api";
 import Loader from "@/components/loader/Loader";
+import TileCard from "@/components/share/ui/TileCard";
 
-// ✅ ALL ICONS IMPORTED (FIXED)
-import {
-  FaHeart,
-  FaShoppingCart,
-  FaLayerGroup,
-  FaTag,
-} from "react-icons/fa";
+export default function AllTiles() {
+  const [tiles, setTiles] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-export default function TileDetails() {
-  const { id } = useParams();
-  const [tile, setTile] = useState(null);
+  const [search, setSearch] = useState("");
 
   useEffect(() => {
-    if (id) {
-      getTileById(id).then(setTile);
-    }
-  }, [id]);
+    getTiles()
+      .then(data => setTiles(data))
+      .catch(err => console.log(err))
+      .finally(() => setLoading(false));
+  }, []);
 
-  if (!tile) return <Loader />;
+  if (loading) return <Loader />;
+
+  // filter
+  const filteredTiles = search.trim()
+    ? tiles.filter(tile =>
+        tile.title.toLowerCase().includes(search.toLowerCase())
+      )
+    : tiles;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#fff8f3] to-white py-10 px-6">
+    <div className="max-w-7xl mx-auto p-6">
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      {/* HEADING + BIO */}
+      <div className="text-center mb-8">
 
-        {/* IMAGE */}
-        <div className="flex justify-center">
-          <div className="relative group w-[300px] md:w-[360px]">
+        <h1 className="text-3xl md:text-4xl font-bold text-[#ff5e00]">
+          All Premium Tiles Collection
+        </h1>
 
-            <div className="absolute inset-0 bg-[#ff5e00]/10 blur-2xl rounded-2xl"></div>
+        <p className="mt-3 text-[#443939d8] text-sm md:text-base">
+          Explore our complete range of exclusive, premium quality tiles designed for modern spaces.
+        </p>
 
-            <img
-              src={tile.image}
-              alt={tile.title}
-              className="relative rounded-2xl shadow-xl w-full object-cover transform group-hover:scale-105 transition duration-500"
-            />
+      </div>
 
+      {/* SEARCH */}
+      <div className="flex justify-center mb-8">
+
+        <div className="flex items-center w-[320px] md:w-[420px] bg-gray-100 rounded-full shadow-md overflow-hidden">
+
+          <input
+            type="text"
+            placeholder="Search tiles..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            className="flex-1 px-5 py-2 bg-transparent outline-none text-sm text-[#331300b6]"
+          />
+
+          <div className="w-9 h-9 flex items-center justify-center bg-[#331300b6] text-white rounded-full m-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth={2}
+              stroke="currentColor"
+              className="w-5 h-5"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
+              />
+            </svg>
           </div>
+
         </div>
 
-        {/* DETAILS */}
-        <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-gray-100">
+      </div>
 
-          <h1 className="text-3xl md:text-4xl font-extrabold text-[#331300]">
-            {tile.title}
-          </h1>
+      {/* GRID */}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-18">
 
-          <p className="mt-4 text-gray-600 leading-relaxed">
-            {tile.description}
+        {filteredTiles.length > 0 ? (
+          filteredTiles.map(tile => (
+            <TileCard key={tile.id} tile={tile} />
+          ))
+        ) : (
+          <p className="text-center col-span-full text-gray-500">
+            No tiles found
           </p>
-
-          {/* INFO WITH ICONS */}
-          <div className="mt-6 space-y-4 text-sm text-gray-700">
-
-            <div className="flex items-center gap-3">
-              <FaLayerGroup className="text-[#ff5e00] text-lg" />
-              <span>
-                <span className="font-semibold">Category:</span> {tile.category}
-              </span>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <FaTag className="text-[#ff5e00] text-lg" />
-              <span>
-                <span className="font-semibold">Price:</span>{" "}
-                <span className="text-lg font-bold text-black">
-                  ${tile.price}
-                </span>
-              </span>
-            </div>
-
-          </div>
-
-          {/* BUTTONS */}
-          <div className="mt-8 flex gap-4">
-
-            <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#ff5e00] text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition">
-              <FaShoppingCart className="text-lg" />
-              Add to Cart
-            </button>
-
-            <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 hover:border-[#ff5e00] hover:text-[#ff5e00] transition">
-              <FaHeart className="text-lg" />
-              <FaHeart />
-              Wishlist
-            </button>
-
-          </div>
-
-        </div>
+        )}
 
       </div>
 
