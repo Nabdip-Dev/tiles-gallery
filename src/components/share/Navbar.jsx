@@ -3,16 +3,17 @@ import Link from "next/link";
 import NavLink from "./NavLink";
 import { authClient } from "@/lib/auth-client";
 import { getGravatar } from "@/lib/gravatar";
-import { use } from "react";
+import { usePathname } from "next/navigation";
 import { FiLogOut } from "react-icons/fi";
 import { IoIosLogOut } from "react-icons/io";
+
 
 const Navbar = () => {
   const { data: session, isPending } = authClient.useSession();
   const user = session?.user;
   console.log(user, 'user')
   console.log(user?.image)
-
+  const pathname = usePathname();
   return (
     <div className="navbar bg-white shadow-md px-6 sticky top-0 z-50">
 
@@ -69,7 +70,7 @@ const Navbar = () => {
              before:w-11 before:h-11 before:bg-white
              before:rounded-full before:-translate-x-1/12 before:-translate-y-1/2 cursor-pointer"
             >
-              
+
               <IoIosLogOut />logout
             </button>
 
@@ -81,11 +82,14 @@ const Navbar = () => {
             {/* Login */}
             <Link href="/login" className="w-1/2">
               <button
-                className="w-full h-full pr-2 text-xs font-semibold text-[#ff5e00] hover:text-white
-      border-2 border-[#ff5e00] hover:border-none hover:bg-gradient-to-l from-[#331300b6] to-[#9f3b01b6]
-      rounded-tl-3xl
-      cursor-pointer transition-all duration-300 hover:brightness-110 hover:scale-[1.05]
-      [clip-path:polygon(0_0,100%_0,75%_100%,0_100%)]"
+                className={`w-full h-full pr-2 text-xs font-semibold
+      border-2 rounded-tl-3xl cursor-pointer transition-all duration-300
+      hover:brightness-110 hover:scale-[1.05]
+      [clip-path:polygon(0_0,100%_0,75%_100%,0_100%)]
+      ${pathname === "/login"
+                    ? "text-white border-none bg-gradient-to-l from-[#331300b6] to-[#9f3b01b6]"
+                    : "text-[#ff5e00] border-[#ff5e00] hover:text-white hover:border-none hover:bg-gradient-to-l from-[#331300b6] to-[#9f3b01b6]"
+                  }`}
               >
                 Login
               </button>
@@ -94,11 +98,14 @@ const Navbar = () => {
             {/* Register */}
             <Link href="/register" className="w-1/2 -ml-[20px]">
               <button
-                className="w-full h-full pl-2 text-xs font-semibold text-[#331300b6] hover:text-white
-      border-2 border-[#331300b6] hover:border-none hover:bg-gradient-to-r from-[#ff5100] to-[#e05200]
-      rounded-br-3xl
-      cursor-pointer transition-all duration-300 hover:brightness-110 hover:scale-[1.05]
-      [clip-path:polygon(25%_0,100%_0,100%_100%,0_100%)]"
+                className={`w-full h-full pl-2 text-xs font-semibold
+      border-2 rounded-br-3xl cursor-pointer transition-all duration-300
+      hover:brightness-110 hover:scale-[1.05]
+      [clip-path:polygon(25%_0,100%_0,100%_100%,0_100%)]
+      ${pathname === "/register"
+                    ? "text-white border-none bg-gradient-to-r from-[#ff5100] to-[#e05200]"
+                    : "text-[#331300b6] border-[#331300b6] hover:text-white hover:border-none hover:bg-gradient-to-r from-[#ff5100] to-[#e05200]"
+                  }`}
               >
                 Register
               </button>
