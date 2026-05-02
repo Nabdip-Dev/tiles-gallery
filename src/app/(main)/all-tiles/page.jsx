@@ -22,8 +22,8 @@ export default function AllTiles() {
   // filter
   const filteredTiles = search.trim()
     ? tiles.filter(tile =>
-        tile.title.toLowerCase().includes(search.toLowerCase())
-      )
+      tile.title.toLowerCase().includes(search.toLowerCase())
+    )
     : tiles;
 
   return (
@@ -43,7 +43,15 @@ export default function AllTiles() {
       </div>
 
       {/* SEARCH */}
-      <div className="flex justify-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+
+        <div>
+          <h1 className="text-xl font-bold text-[#331300b6]">
+            {search.trim()
+              ? `Search Results: ${filteredTiles.length}`
+              : `Total Tiles: ${tiles.length}`}
+          </h1>
+        </div>
 
         <div className="flex items-center w-[320px] md:w-[420px] bg-gray-100 rounded-full shadow-md overflow-hidden">
 
@@ -56,20 +64,7 @@ export default function AllTiles() {
           />
 
           <div className="w-9 h-9 flex items-center justify-center bg-[#331300b6] text-white rounded-full m-1">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
-              />
-            </svg>
+            🔍
           </div>
 
         </div>
@@ -77,7 +72,7 @@ export default function AllTiles() {
       </div>
 
       {/* GRID */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-18">
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
         {filteredTiles.length > 0 ? (
           filteredTiles.map(tile => (

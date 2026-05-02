@@ -1,18 +1,46 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import Link from "next/link";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { useRouter } from "next/navigation"; 
 
 export default function Login() {
     const [show, setShow] = useState(false);
-    const { register,
-        handleSubmit,  formState: { errors } } = useForm();
+    const router = useRouter(); 
 
-    const handelfun = (data) => {
-        console.log(data , 'data')
+    const { register,
+        handleSubmit, formState: { errors } } = useForm();
+
+    const handelfun = async (data) => {
+        console.log(data, 'data')
+
+        const { data: res, error } = await authClient.signIn.email({
+            email: data.email,
+            password: data.password,
+            rememberMe: true,
+            callbackURL: "/",
+        });
+
+        console.log(res, error);
+
+        if (error) {
+            alert(error?.message || "Login failed");
+            return;
+        }
+
+        if (res) {
+            router.push("/"); 
+        }
     };
-    
+
+    const handelgooglesin = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    }
+
     return (
         <div className="min-h-screen flex items-center justify-center px-6">
 
@@ -27,19 +55,16 @@ export default function Login() {
                         Login to continue
                     </p>
 
-                    {/* Form */}
                     <form onSubmit={handleSubmit(handelfun)} className="space-y-4">
 
-                        {/* Email */}
                         <input
                             type="email"
                             placeholder="Email Address"
-                            {...register("email",{ required: "Login requires a email." })}
+                            {...register("email", { required: "Login requires a email." })}
                             className="input input-bordered w-full rounded-xl focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                         />
-                         {errors.email && <p className="text-red-700">{errors.email.message}</p>}
+                        {errors.email && <p className="text-red-700">{errors.email.message}</p>}
 
-                        {/* Password */}
                         <div className="relative">
 
                             <input
@@ -49,55 +74,36 @@ export default function Login() {
                                 className="input input-bordered w-full rounded-xl pr-10 focus:outline-none focus:ring-1 focus:ring-[#331300b6]"
                             />
 
-                            {/* Emoji Toggle */}
                             <span
                                 onClick={() => setShow(!show)}
                                 className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-lg select-none"
                             >
                                 {show ? "👁️" : "🙈"}
                             </span>
-                             
+
                         </div>
                         {errors.password && <p className="text-red-700">{errors.password.message}</p>}
 
-                        {/* Login Button */}
                         <button className="w-full py-2 rounded-xl text-white font-semibold bg-gradient-to-r from-[#ff5e00] to-[#ae4001] hover:scale-105 transition duration-300 shadow-md">
                             Login
                         </button>
 
                     </form>
 
-                    {/* Divider */}
                     <div className="divider my-6 text-gray-400">OR</div>
 
-                    {/* Social Login */}
                     <div className="space-y-3">
 
-                        <button className="btn w-full flex items-center gap-3 border rounded-xl hover:bg-gray-100 transition hover:border-[#ff5e00]">
-                            <img
-                                src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
-                                className="w-5"
-                            />
+                        <button onClick={handelgooglesin} className="btn w-full flex items-center gap-3 border rounded-xl hover:bg-gray-100 transition hover:border-[#ff5e00]">
+                            <img src="https://cdn-icons-png.flaticon.com/512/300/300221.png" className="w-5" />
                             Continue with Google
-                        </button>
-
-                        <button className="btn w-full flex items-center gap-3 border rounded-xl hover:bg-gray-100 transition hover:border-[#ff5e00]">
-                            <img
-                                src="https://cdn-icons-png.flaticon.com/512/733/733547.png"
-                                className="w-5"
-                            />
-                            Continue with Facebook
                         </button>
 
                     </div>
 
-                    {/* Redirect */}
                     <p className="text-center mt-6 text-sm text-gray-600">
                         Don’t have an account?{" "}
-                        <Link
-                            href="/register"
-                            className="text-blue-500 font-semibold hover:underline"
-                        >
+                        <Link href="/register" className="text-blue-500 font-semibold hover:underline">
                             Register
                         </Link>
                     </p>
