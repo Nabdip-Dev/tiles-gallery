@@ -33,11 +33,16 @@ export default function Register() {
         alert("Registration Successful");
 
         if (res) {
-            await authClient.signOut(); // 🔥 auto login cancel
-            router.push("/login");      // 👉 login page-এ পাঠাও
+            await authClient.signOut();
+            router.push("/login");
         }
 
     };
+    const handelgooglesin = async () => {
+        const data = await authClient.signIn.social({
+            provider: "google",
+        });
+    }
 
     return (
 
@@ -109,7 +114,7 @@ export default function Register() {
 
                     <div className="space-y-3">
 
-                        <button className="btn w-full flex items-center gap-3 border rounded-xl hover:bg-gray-100 hover:border-[#ff5e00] transition">
+                        <button onClick={handelgooglesin} className="btn w-full flex items-center gap-3 border rounded-xl hover:bg-gray-100 hover:border-[#ff5e00] transition">
                             <img
                                 src="https://cdn-icons-png.flaticon.com/512/300/300221.png"
                                 className="w-5"
