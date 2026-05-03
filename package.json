@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@better-auth/mongo-adapter": "^1.6.9",
+    "@dotlottie/player-component": "^2.7.12",
     "@lottiefiles/dotlottie-react": "^0.19.0",
     "better-auth": "^1.6.9",
     "crypto-js": "^4.2.0",

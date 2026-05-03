@@ -1,45 +1,98 @@
+import { FaFacebookF, FaInstagram, FaGlobe, FaPhoneAlt } from "react-icons/fa";
+import { MdEmail } from "react-icons/md";
+import Link from "next/link";
+
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 mt-10">
-      <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
-        
+    <footer className="bg-[#0f0f0f] text-gray-300 mt-0">
+
+      {/* Main Section */}
+      <div className="max-w-7xl mx-auto px-6 py-12 grid md:grid-cols-3 gap-10 text-center">
+
         {/* Logo & About */}
-        <div>
-          <h2 className="text-2xl font-bold text-white">TileGallery</h2>
-          <p className="mt-2 text-sm">
-            Discover premium tiles to enhance your home aesthetics. 
-            Modern, stylish, and durable collections.
+        <div className="flex flex-col items-center">
+          <h1 className="text-2xl font-bold text-[#ff5e00]">
+            TILE<span className="text-white">S</span>HOP
+          </h1>
+          <p className="mt-3 text-sm leading-relaxed text-gray-400 max-w-xs">
+            Discover premium tiles to elevate your space with modern design,
+            durability, and elegance.
           </p>
         </div>
 
         {/* Links */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Quick Links</h3>
-          <ul className="space-y-1">
-            <li><a href="/" className="hover:text-white">Home</a></li>
-            <li><a href="/all-tiles" className="hover:text-white">All Tiles</a></li>
-            <li><a href="/my-profile" className="hover:text-white">My Profile</a></li>
+        <div className="flex flex-col items-center">
+          <h3 className="text-lg font-semibold text-white mb-4">
+            Quick Links
+          </h3>
+          <ul className="space-y-2 text-sm">
+            <li>
+              <Link href="/" className="hover:text-[#ff5e00] transition">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/all-tiles" className="hover:text-[#ff5e00] transition">
+                All Tiles
+              </Link>
+            </li>
+            <li>
+              <Link href="/my-profile" className="hover:text-[#ff5e00] transition">
+                My Profile
+              </Link>
+            </li>
           </ul>
         </div>
 
         {/* Contact + Social */}
-        <div>
-          <h3 className="text-lg font-semibold text-white mb-2">Contact Us</h3>
-          <p>Email: support@tilegallery.com</p>
-          <p>Phone: +91 98765 43210</p>
+        <div className="flex flex-col items-center">
+          <h3 className="text-lg font-semibold text-white mb-4">
+            Contact
+          </h3>
 
-          <div className="flex gap-3 mt-4">
-            <a href="#" className="hover:text-white">🌐</a>
-            <a href="#" className="hover:text-white">📘</a>
-            <a href="#" className="hover:text-white">📸</a>
+          <div className="space-y-2 text-sm text-gray-400">
+            <p className="flex items-center justify-center gap-2">
+              <MdEmail className="text-[#ff5e00]" />
+              support@tilegallery.com
+            </p>
+            <p className="flex items-center justify-center gap-2">
+              <FaPhoneAlt className="text-[#ff5e00]" />
+              +91 98765 43210
+            </p>
+          </div>
+
+          {/* Social Icons */}
+          <div className="flex gap-4 mt-5 justify-center">
+            <a className="p-2 rounded-full bg-gray-800 hover:bg-[#ff5e00] transition">
+              <FaGlobe />
+            </a>
+            <a className="p-2 rounded-full bg-gray-800 hover:bg-[#1877F2] transition">
+              <FaFacebookF />
+            </a>
+            <a className="p-2 rounded-full bg-gray-800 hover:bg-[#E4405F] transition">
+              <FaInstagram />
+            </a>
           </div>
         </div>
 
       </div>
 
-      <div className="text-center border-t border-gray-700 py-4 text-sm">
-        © 2026 TileGallery. All rights reserved.
+      {/* ================= NEW TERMS / PRIVACY ================= */}
+      <div className="flex justify-center gap-6 text-sm text-gray-400 pb-3">
+        <Link href="/privacy" className="hover:text-[#ff5e00] transition">
+          Privacy Policy
+        </Link>
+        <Link href="/terms" className="hover:text-[#ff5e00] transition">
+          Terms & Conditions
+        </Link>
       </div>
+
+      {/* Bottom */}
+      <div className="text-center border-t border-gray-800 py-4 text-sm text-gray-500">
+        © 2026{" "}
+        <span className="text-[#ff5e00] font-semibold">Tileshop</span>. All rights reserved.
+      </div>
+
     </footer>
   );
 };

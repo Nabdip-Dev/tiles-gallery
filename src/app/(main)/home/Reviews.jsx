@@ -1,5 +1,6 @@
 "use client";
 
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import { motion } from "framer-motion";
 
 const reviews = [
@@ -31,10 +32,18 @@ const reviews = [
 
 export const Reviews = () => {
   return (
-    <section className="bg-gradient-to-r  via-[#f2d58db2]  py-16 px-4 flex flex-col items-center justify-center">
+    <section className="bg-gradient-to-r  via-[#f2d58db2]  pt-19 pb-25 px-4  flex flex-col items-center justify-center">
 
-      <h2 className="mb-10 -mt-9 text-2xl md:text-3xl font-bold text-[#5a2100] text-center">
-        Client Reviews
+      <h2 className="flex flex-col items-center mb-15 -mt-9 text-2xl md:text-3xl font-bold text-[#5a2100] text-center">
+        
+        <span className="w-[100px] h-[120px]">
+          <DotLottieReact
+            src="https://lottie.host/4c6512d7-75e9-462d-9156-8883fe8f5def/A72F962FFG.lottie"
+            loop
+            autoplay
+          />
+        </span>
+        <span className="-mt-4">Client Reviews</span> 
       </h2>
 
       {/* ✅ responsive layout */}

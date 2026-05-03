@@ -24,14 +24,14 @@ const Banner = () => {
           </p>
 
           <Link href="/all-tiles">
-            <button className="relative mt-4 pl-6 rounded-full font-semibold text-[#ffede3] hover:text-black
+            <button className="relative mt-4 pl-6 rounded-full font-semibold text-[#ffede3] hover:text-[#5a2100]
 bg-[#fb5c00] overflow-hidden group
 active:translate-y-[3px] transition-all duration-200 cursor-pointer">
 
               {/* rotating border */}
               <span className="absolute inset-0 rounded-full p-[2px] opacity-0 group-hover:opacity-100 transition-all duration-300">
                 <span className="absolute inset-0 rounded-full
-    bg-[conic-gradient(#ffede3,transparent,#ffede3)]
+    bg-[conic-gradient(#5a2100,transparent,#5a2100)]
     animate-[spin_3.5s_linear_infinite]">
                 </span>
               </span>

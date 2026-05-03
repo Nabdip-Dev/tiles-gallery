@@ -64,7 +64,7 @@ export default function MyProfile() {
           </div>
 
           {/* Info */}
-          <h2 className="text-2xl font-bold text-gray-800">
+          <h2 className="text-2xl font-bold text-[#ff5500]">
             {user.name}
           </h2>
 
@@ -89,16 +89,16 @@ export default function MyProfile() {
           </div>
 
           {/* Buttons */}
-          <div className="space-y-3">
+          <div className="space-y-4">
             <Link href="/my-profile/update-profile">
               <button className="w-full py-2.5 rounded-xl text-white font-semibold bg-gradient-to-r from-orange-500 to-red-600 hover:scale-[1.02] transition">
-                Update Profile
+                Edit Profile
               </button>
             </Link>
 
             <button
               onClick={() => toast.success("Coming soon")}
-              className="w-full py-2.5 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
+              className="w-full py-2.5 mt-6 rounded-xl border border-gray-300 text-gray-700 hover:bg-gray-100 transition"
             >
               Account Settings
             </button>

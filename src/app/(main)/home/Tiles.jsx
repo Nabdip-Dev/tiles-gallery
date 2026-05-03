@@ -89,7 +89,7 @@ export default function Home() {
         <Link href="/all-tiles" className="inline-block ml-auto group">
           <button className="relative mt-1 pl-5 pr-2 py-2 text-sm font-semibold text-white
             bg-gradient-to-r from-[#fb5c00] to-[#ff7a1a]
-            shadow-lg overflow-hidden rounded-xl
+            shadow-lg overflow-hidden rounded-xl cursor-pointer
             transition-all duration-300
             hover:shadow-2xl hover:-translate-y-0.5
             active:scale-95

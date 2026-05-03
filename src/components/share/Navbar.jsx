@@ -6,6 +6,11 @@ import { getGravatar } from "@/lib/gravatar";
 import { usePathname } from "next/navigation";
 import { FiLogOut } from "react-icons/fi";
 import { IoIosLogOut } from "react-icons/io";
+import { RiHome4Line } from "react-icons/ri";
+import { MdOutlineOpenInBrowser, MdWavingHand } from "react-icons/md";
+import { CgProfile } from "react-icons/cg";
+
+
 
 
 const Navbar = () => {
@@ -42,17 +47,24 @@ const Navbar = () => {
       {/* Center - Menu */}
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1 gap-3 font-medium">
-          <li><NavLink href="/">Home</NavLink></li>
-          <li><NavLink href="/all-tiles">All Tiles</NavLink></li>
-          {user && <li><NavLink href="/my-profile">My Profile</NavLink></li>}
+          <li><NavLink href="/"><RiHome4Line />Home</NavLink></li>
+          <li><NavLink href="/all-tiles"><MdOutlineOpenInBrowser />All Tiles</NavLink></li>
+          {user && <li><NavLink href="/my-profile"> <CgProfile />My Profile</NavLink></li>}
         </ul>
       </div>
 
       {/* Right - Auth */}
       <div className="navbar-end gap-2">
-        {isPending ? "loading..." : user ? (
+        {isPending ? (
+          <span className="loading loading-bars loading-sm text-orange-500"></span>
+        ) : user ? (
           <>
-            <h1 className="hidden md:block">{user.name}</h1>
+            <div className="px-4">
+              <h1 className="hidden md:flex flex-col  items-center gap-1">
+                <span className="flex items-center text-[#300f00] font-semibold">Hello<MdWavingHand /></span> <span className="font-bold text-[#ff5e00]">“{user.name}”</span>
+              </h1>
+            </div>
+
             <img
               src={user?.image || getGravatar(user?.email)}
               onError={(e) => {
