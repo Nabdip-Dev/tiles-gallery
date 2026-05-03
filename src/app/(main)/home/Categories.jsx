@@ -10,11 +10,11 @@ export const Categories = () => {
     ];
 
     return (
-        <section className="pb-28 px-4 sm:px-6 text-center">
+        <section className="bg-gradient-to-r from-[#fadff688] via-[#F8EDD8] to-[#f1cbec88] pb-20 px-10 sm:px-6 text-center">
 
-            <h2 className="flex flex-col md:flex-row justify-center items-center text-xl sm:text-2xl md:text-3xl font-extrabold text-[#5a2100]">
+            <h2 className="flex flex-col md:flex-row justify-center items-center mb-15 md:mb-2 text-2xl md:text-3xl font-extrabold text-[#5a2100]">
 
-                <div className="w-[200px] h-[200px] flex items-center justify-center shrink-0 -mr-10">
+                <div className="w-[200px] h-[200px] flex items-center justify-center shrink-0 md:-mr-10">
                     <DotLottieReact
                         style={{
                             width: "100%",
@@ -27,7 +27,7 @@ export const Categories = () => {
                     />
                 </div>
 
-                <span className="leading-none">
+                <span className="leading-none -mt-15 md:-mt-0">
                     Tile Categories
                 </span>
 
