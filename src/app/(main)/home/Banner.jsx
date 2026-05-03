@@ -1,4 +1,5 @@
 "use client";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 import Link from "next/link";
 
 const Banner = () => {
@@ -23,7 +24,7 @@ const Banner = () => {
           </p>
 
           <Link href="/all-tiles">
-            <button className="relative mt-4 px-6 py-3 rounded-full font-semibold text-[#ffede3]
+            <button className="relative mt-4 pl-6 rounded-full font-semibold text-[#ffede3] hover:text-black
 bg-[#fb5c00] overflow-hidden group
 active:translate-y-[3px] transition-all duration-200 cursor-pointer">
 
@@ -39,8 +40,19 @@ active:translate-y-[3px] transition-all duration-200 cursor-pointer">
               <span className="absolute inset-[2px] rounded-full bg-[#f15a03]"></span>
 
               {/* text */}
-              <span className="relative z-10">
-                Browse Now
+              <span className="flex items-center relative z-10">
+                Browse Now <span className="w-[80px] h-[50px] -ml-5 flex items-center justify-center shrink-0">
+                  <DotLottieReact
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      display: "block",
+                    }}
+                    src="https://lottie.host/b13d78cb-badc-412a-8996-c760981f6217/UnJn7rWygB.lottie"
+                    loop
+                    autoplay
+                  />
+                </span>
               </span>
 
             </button>
