@@ -1,101 +1,136 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { getTileById } from "@/services/api";
-import Loader from "@/components/loader/Loader";
+import { motion } from "framer-motion";
 
-// ✅ ALL ICONS IMPORTED (FIXED)
-import {
-  FaHeart,
-  FaShoppingCart,
-  FaLayerGroup,
-  FaTag,
-} from "react-icons/fa";
+import { FaHeart, FaShoppingCart, FaLayerGroup, FaTag } from "react-icons/fa";
+
+function Skeleton() {
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="animate-pulse grid md:grid-cols-2 gap-6 w-full max-w-5xl">
+        <div className="h-[420px] bg-gray-200 rounded-2xl"></div>
+        <div className="space-y-3">
+          <div className="h-6 bg-gray-200 rounded w-3/4"></div>
+          <div className="h-4 bg-gray-200 rounded w-full"></div>
+          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+          <div className="h-28 bg-gray-200 rounded"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function TileDetails() {
   const { id } = useParams();
   const [tile, setTile] = useState(null);
 
   useEffect(() => {
-    if (id) {
-      getTileById(id).then(setTile);
-    }
+    if (id) getTileById(id).then(setTile);
   }, [id]);
 
-  if (!tile) return <Loader />;
+  if (!tile) return <Skeleton />;
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#fff8f3] to-white py-10 px-6">
+    <div className="min-h-screen flex items-center  px-4 py-16 lg:py-2">
 
-      <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-10 items-center">
+      <motion.div
+        initial={{ opacity: 0, y: 15 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch"
+      >
 
-        {/* IMAGE */}
-        <div className="flex justify-center">
-          <div className="relative group w-[300px] md:w-[360px]">
-
-            <div className="absolute inset-0 bg-[#ff5e00]/10 blur-2xl rounded-2xl"></div>
-
-            <img
-              src={tile.image}
-              alt={tile.title}
-              className="relative rounded-2xl shadow-xl w-full object-cover transform group-hover:scale-105 transition duration-500"
-            />
-
-          </div>
+        {/* LEFT IMAGE */}
+        <div className="h-[430px] w-full bg-[#ffffff] rounded-2xl shadow-md flex items-center justify-center overflow-hidden">
+          <img
+            src={tile.image}
+            alt={tile.title}
+            className="w-full h-full object-contain p-4"
+          />
         </div>
 
-        {/* DETAILS */}
-        <div className="bg-white/70 backdrop-blur-md p-8 rounded-2xl shadow-xl border border-gray-100">
+        {/* RIGHT CONTENT */}
+        <div className="h-[430px] bg-white/70 backdrop-blur-xl rounded-2xl shadow-md border border-white/40 p-5 flex flex-col justify-between">
 
-          <h1 className="text-3xl md:text-4xl font-extrabold text-[#331300]">
-            {tile.title}
-          </h1>
+          <div>
+            <h1 className="text-xl font-bold text-gray-900">
+              {tile.title}
+            </h1>
 
-          <p className="mt-4 text-gray-600 leading-relaxed">
-            {tile.description}
-          </p>
+            <p className="mt-2 text-gray-600 text-sm">
+              {tile.description}
+            </p>
 
-          {/* INFO WITH ICONS */}
-          <div className="mt-6 space-y-4 text-sm text-gray-700">
+            <div className="mt-4 grid grid-cols-2 gap-2 text-xs">
 
-            <div className="flex items-center gap-3">
-              <FaLayerGroup className="text-[#ff5e00] text-lg" />
-              <span>
-                <span className="font-semibold">Category:</span> {tile.category}
-              </span>
+              <div className="flex items-center gap-2 bg-orange-50 p-2 rounded-lg">
+                <FaLayerGroup className="text-orange-500" />
+                <div>
+                  <p className="text-gray-500 text-[10px]">Category</p>
+                  <p className="font-semibold">{tile.category}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 bg-orange-50 p-2 rounded-lg">
+                <FaTag className="text-orange-500" />
+                <div>
+                  <p className="text-gray-500 text-[10px]">Price</p>
+                  <p className="font-semibold">${tile.price}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 bg-orange-50 p-2 rounded-lg">
+                <span>📐</span>
+                <div>
+                  <p className="text-gray-500 text-[10px]">Size</p>
+                  <p className="font-semibold">{tile.dimensions}</p>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 bg-orange-50 p-2 rounded-lg">
+                <span>🧱</span>
+                <div>
+                  <p className="text-gray-500 text-[10px]">Material</p>
+                  <p className="font-semibold">{tile.material}</p>
+                </div>
+              </div>
+
             </div>
 
-            <div className="flex items-center gap-3">
-              <FaTag className="text-[#ff5e00] text-lg" />
-              <span>
-                <span className="font-semibold">Price:</span>{" "}
-                <span className="text-lg font-bold text-black">
-                  ${tile.price}
-                </span>
-              </span>
+            <div className="mt-3 flex items-center gap-2 text-sm">
+              <span className={`h-2.5 w-2.5 rounded-full ${tile.inStock ? "bg-green-500" : "bg-red-500"}`}></span>
+              <p className={`font-semibold ${tile.inStock ? "text-green-600" : "text-red-500"}`}>
+                {tile.inStock ? "In Stock" : "Out of Stock"}
+              </p>
             </div>
-
           </div>
 
           {/* BUTTONS */}
-          <div className="mt-8 flex gap-4">
+          <div className="flex gap-2 mt-3">
 
-            <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-[#ff5e00] text-white font-semibold shadow-md hover:shadow-lg hover:scale-105 transition">
-              <FaShoppingCart className="text-lg" />
-              Add to Cart
+            <button
+              disabled={!tile.inStock}
+              className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-semibold transition
+              ${tile.inStock
+                  ? "bg-orange-500 text-white hover:bg-orange-600"
+                  : "bg-gray-300 text-gray-500 cursor-not-allowed"
+                }`}
+            >
+              <FaShoppingCart />
+              Add
             </button>
 
-            <button className="flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 hover:border-[#ff5e00] hover:text-[#ff5e00] transition">
-              <FaHeart className="text-lg" />
-              Wishlist
+            <button className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl border text-sm hover:border-orange-500 hover:text-orange-500 transition">
+              <FaHeart />
+              Save
             </button>
 
           </div>
 
         </div>
-
-      </div>
-
+      </motion.div>
     </div>
   );
 }

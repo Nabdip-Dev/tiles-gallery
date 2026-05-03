@@ -15,7 +15,6 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <Loader />;
 
   const visibleTiles = allTiles.slice(0, 4);
 
@@ -54,7 +53,11 @@ export default function Home() {
       {/* GRID */}
       <div className="mx-auto mt-8 px-3 grid md:grid-cols-2 lg:grid-cols-4 gap-6">
 
-        {visibleTiles.length > 0 ? (
+        {loading ? (
+          <div className="col-span-full flex items-center justify-center py-16">
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-orange-500 rounded-full animate-spin"></div>
+          </div>
+        ) : visibleTiles.length > 0 ? (
           visibleTiles.map(tile => (
             <TileCard key={tile.id} tile={tile} />
           ))

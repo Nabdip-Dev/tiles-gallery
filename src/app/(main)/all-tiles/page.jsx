@@ -1,60 +1,52 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { getTiles } from "@/services/api";
-import Loader from "@/components/loader/Loader";
 import TileCard from "@/components/share/ui/TileCard";
 
 export default function AllTiles() {
   const [tiles, setTiles] = useState([]);
   const [loading, setLoading] = useState(true);
-
   const [search, setSearch] = useState("");
 
   useEffect(() => {
     getTiles()
-      .then(data => setTiles(data))
-      .catch(err => console.log(err))
+      .then((data) => setTiles(data))
+      .catch((err) => console.log(err))
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <Loader />;
-
-  // filter
   const filteredTiles = search.trim()
-    ? tiles.filter(tile =>
+    ? tiles.filter((tile) =>
       tile.title.toLowerCase().includes(search.toLowerCase())
     )
     : tiles;
 
+
   return (
     <div className="max-w-7xl mx-auto p-6">
 
-      {/* HEADING + BIO */}
+      {/* HEADING */}
       <div className="text-center mb-8">
-
         <h1 className="text-3xl md:text-4xl font-bold text-[#ff5e00]">
           All Premium Tiles Collection
         </h1>
 
         <p className="mt-3 text-[#443939d8] text-sm md:text-base">
-          Explore our complete range of exclusive, premium quality tiles designed for modern spaces.
+          Explore our complete range of exclusive, premium quality tiles.
         </p>
-
       </div>
 
       {/* SEARCH */}
-      <div className="flex flex-col md:flex-row justify-between items-center mb-8">
+      <div className="flex flex-col md:flex-row justify-between items-center mb-8 gap-4">
 
-        <div>
-          <h1 className="text-xl font-bold text-[#331300b6]">
-            {search.trim()
-              ? `Search Results: ${filteredTiles.length}`
-              : `Total Tiles: ${tiles.length}`}
-          </h1>
-        </div>
+        <h1 className="text-xl font-bold text-[#331300b6]">
+          {search.trim()
+            ? `Search Results: ${filteredTiles.length}`
+            : `Total Tiles: ${tiles.length}`}
+        </h1>
 
-        <div className="flex items-center w-[320px] md:w-[420px] bg-gray-100 rounded-full shadow-md overflow-hidden">
-
+        <div className="flex items-center w-full md:w-[420px] bg-gray-100 rounded-full shadow-md overflow-hidden">
           <input
             type="text"
             placeholder="Search tiles..."
@@ -66,16 +58,18 @@ export default function AllTiles() {
           <div className="w-9 h-9 flex items-center justify-center bg-[#331300b6] text-white rounded-full m-1">
             🔍
           </div>
-
         </div>
-
       </div>
 
       {/* GRID */}
       <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
 
-        {filteredTiles.length > 0 ? (
-          filteredTiles.map(tile => (
+        {loading ? (
+          <div className="col-span-full flex items-center justify-center py-20">
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-orange-500 rounded-full animate-spin"></div>
+          </div>
+        ) : filteredTiles.length > 0 ? (
+          filteredTiles.map((tile) => (
             <TileCard key={tile.id} tile={tile} />
           ))
         ) : (
