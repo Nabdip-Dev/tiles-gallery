@@ -34,11 +34,14 @@ export default function Login() {
         return;
       }
 
-      toast.success("Login successful 🎉");
+      toast.success("Login successful 🎉", {
+        duration: 3000,
+      });
 
-      if (res) {
-        router.push("/");
-      }
+      setTimeout(() => {
+        router.replace("/");
+      }, 6000);
+
     } catch (err) {
       toast.error("Something went wrong");
     } finally {

@@ -2,35 +2,44 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, EffectFade, Pagination } from "swiper/modules";
+import Image from "next/image";
+import Link from "next/link";
+import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
 import "swiper/css";
 import "swiper/css/effect-fade";
 import "swiper/css/pagination";
 
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import Link from "next/link";
-
 const Banner = () => {
   const images = ["/banner2.png", "/banner1.png", "/banner3.png"];
 
   return (
-    <div className="relative h-[350px] md:h-[500px]">
+    <div className="relative h-[350px] md:h-[500px] overflow-hidden">
 
       {/* 🔥 Swiper Slider */}
       <Swiper
         modules={[Autoplay, EffectFade, Pagination]}
-        autoplay={{ delay: 3000 }}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
         effect="fade"
+        speed={800}
         pagination={{ clickable: true }}
         className="h-full"
       >
         {images.map((img, i) => (
           <SwiperSlide key={i}>
-            <div
-              className="h-full bg-cover bg-center"
-              style={{ backgroundImage: `url(${img})` }}
-            />
+            <div className="relative w-full h-full">
+
+              {/* 🔥 Optimized Image */}
+              <Image
+                src={img}
+                alt="banner"
+                fill
+                priority={i === 0}   // প্রথম image instantly load
+                className="object-cover"
+              />
+
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>
@@ -40,6 +49,7 @@ const Banner = () => {
 
       {/* 🔥 Content */}
       <div className="absolute inset-0 z-20 flex items-center justify-center text-center px-6 py-10">
+
         <div>
           <h1 className="text-3xl md:text-6xl font-bold text-[#ff5500] leading-tight">
             Discover Your Perfect Aesthetic
@@ -61,6 +71,7 @@ bg-[#fb5c00] overflow-hidden group active:translate-y-[3px] transition-all durat
 
               <span className="flex items-center relative z-10">
                 Browse Now
+
                 <span className="w-[80px] h-[50px] -ml-5 flex items-center justify-center shrink-0">
                   <DotLottieReact
                     style={{ width: "100%", height: "100%", display: "block" }}
@@ -69,11 +80,13 @@ bg-[#fb5c00] overflow-hidden group active:translate-y-[3px] transition-all durat
                     autoplay
                   />
                 </span>
+
               </span>
 
             </button>
           </Link>
         </div>
+
       </div>
 
     </div>
