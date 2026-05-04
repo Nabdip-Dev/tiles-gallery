@@ -34,13 +34,16 @@ export default function Login() {
         return;
       }
 
+      // 🔥 SUCCESS TOAST
       toast.success("Login successful 🎉", {
         duration: 3000,
       });
 
-      setTimeout(() => {
-        router.replace("/");
-      }, 6000);
+      // ⏱ wait until toast finishes
+      await new Promise((r) => setTimeout(r, 3000));
+
+      // 🚀 redirect
+      router.push("/");
 
     } catch (err) {
       toast.error("Something went wrong");
@@ -66,7 +69,7 @@ export default function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center px-6">
 
-      {/* TOASTER */}
+      {/* GLOBAL TOASTER */}
       <Toaster position="top-right" />
 
       <div className="w-full max-w-md p-[1px] rounded-2xl bg-gradient-to-r from-[#ff5e00] via-purple-500 to-pink-500">
@@ -151,13 +154,10 @@ export default function Login() {
             Continue with Google
           </button>
 
-          {/* REGISTER LINK */}
+          {/* REGISTER */}
           <p className="text-center mt-6 text-sm text-gray-600">
             Don’t have an account?{" "}
-            <Link
-              href="/register"
-              className="text-blue-500 font-semibold hover:underline"
-            >
+            <Link href="/register" className="text-blue-500 font-semibold hover:underline">
               Register
             </Link>
           </p>
