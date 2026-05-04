@@ -1,2 +1,19 @@
 @import "tailwindcss";
 @plugin "daisyui";
+
+html, body {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.swiper-pagination .swiper-pagination-bullet {
+  background-color: rgb(255, 255, 255) !important;
+}
+
+.swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #fe4c00 !important;
+}

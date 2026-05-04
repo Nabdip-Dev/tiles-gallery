@@ -38,7 +38,7 @@ const TileCard = ({ tile }) => {
           )}
         </span>
       </div>
-      <hr />
+      <div className="divider my-1 before:h-[1px] after:h-[1px] opacity-90" />
       {/* Content */}
       <div className="p-4 space-y-1">
 

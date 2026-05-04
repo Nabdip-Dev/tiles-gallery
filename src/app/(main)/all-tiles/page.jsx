@@ -18,13 +18,12 @@ export default function AllTiles() {
 
   const filteredTiles = search.trim()
     ? tiles.filter((tile) =>
-      tile.title.toLowerCase().includes(search.toLowerCase())
-    )
+        tile.title.toLowerCase().includes(search.toLowerCase())
+      )
     : tiles;
 
-
   return (
-    <div className="max-w-7xl mx-auto p-6">
+    <div className="max-w-7xl mx-auto px-4 mb-10 sm:px-6 overflow-x-hidden">
 
       {/* HEADING */}
       <div className="text-center mb-8">
@@ -46,7 +45,8 @@ export default function AllTiles() {
             : `Total Tiles: ${tiles.length}`}
         </h1>
 
-        <div className="flex items-center w-full md:w-[420px] bg-gray-100 rounded-full shadow-md overflow-hidden">
+        {/* FIXED SEARCH BOX */}
+        <div className="flex items-center w-full max-w-[420px] bg-gray-100 rounded-full shadow-md overflow-hidden">
           <input
             type="text"
             placeholder="Search tiles..."
@@ -62,7 +62,7 @@ export default function AllTiles() {
       </div>
 
       {/* GRID */}
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 pl-3 md:pl-0 gap-8 ">
 
         {loading ? (
           <div className="col-span-full flex items-center justify-center py-20">
@@ -79,7 +79,6 @@ export default function AllTiles() {
         )}
 
       </div>
-
     </div>
   );
 }

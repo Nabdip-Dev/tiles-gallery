@@ -7,16 +7,16 @@
 ---
 
 <p align="center">
-  <img src="https://i.ibb.co/your-screenshot.png" alt="Tileshop Preview" width="100%" />
+  <img src="https://raw.githubusercontent.com/Nabdip-Dev/tiles-gallery/main/public/home.png" alt="Tileshop Preview" width="100%" />
 </p>
 
 ---
 
 <p align="center">
-  <a href="https://your-live-link.vercel.app">
+  <a href="https://tiles-gallery-nu.vercel.app/">
     <img src="https://img.shields.io/badge/🚀 Live%20Preview-ff5e00?style=for-the-badge&logo=vercel&logoColor=white" />
   </a>
-  <a href="https://github.com/your-username/your-repo">
+  <a href="https://github.com/Nabdip-Dev/tiles-gallery">
     <img src="https://img.shields.io/badge/💻 Source%20Code-000?style=for-the-badge&logo=github&logoColor=white" />
   </a>
 </p>

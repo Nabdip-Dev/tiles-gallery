@@ -45,7 +45,7 @@ const Marqueepage = () => {
   ];
 
   return (
-    <div className="py-4 bg-gradient-to-r from-orange-50 via-white to-green-50 border-y border-gray-100">
+    <div className="py-4 bg-gradient-to-r  border-y border-gray-100">
 
       <Marquee pauseOnHover gradient={false} speed={55}>
 
