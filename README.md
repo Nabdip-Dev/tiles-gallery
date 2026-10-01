@@ -1,7 +1,7 @@
 <h1 align="center">🧱 TILESHOP</h1>
 
 <p align="center">
-  A premium tile discovery platform with modern UI, smooth animations, and secure authentication.
+  A premium tile discovery platform with modern UI, smooth animations, and secure authentication .
 </p>
 
 ---
